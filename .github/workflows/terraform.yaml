@@ -18,7 +18,7 @@ jobs:
       - name: ssh
         uses: webfactory/ssh-agent@v0.9.0
         with:
-            ssh-private-key: ${{ secrets.SSH_KEY_GITHUB_ACTION }}
+            ssh-private-key: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
 
       - name: init
         run: terraform init
