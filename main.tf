@@ -6,3 +6,7 @@ module "ec2-module" {
   name = "tonyit"
   region = "us-east-1"
 }
+
+variable "inst_type" {}
+variable "name" {}
+variable "region" {}

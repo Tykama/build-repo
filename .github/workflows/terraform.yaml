@@ -7,11 +7,21 @@ on:
         type: choice
         description: 'Plan or Apply'
         options:
-          - plan
-          - apply
-          - destroy
+          - Plan
+          - Apply
+          - Destroy
         required: true
-        default: 'plan'
+        default: 'Plan'
+      
+      vars_files:
+        type: choice
+        description: 'Path to vars files'
+        options: 
+          - dev.tfvars
+          - prod.tfvars
+          - stage.tfvars
+        required: true
+        default: 'dev.tfvars'
 
 jobs:
   terraform:
@@ -48,5 +58,9 @@ jobs:
         run: terraform fmt -recursive
 
       - name: plan
-        run: terraform plan
+        run: terraform ${{ github.event.inputs.action }} -var-file=${{ github.event.inputs.vars_files}}
         if: ${{ github.event.inputs.action == 'plan' }}
+
+      - name: apply
+        run: terraform ${{ github.event.inputs.action }} -var-file=${{ github.event.inputs.vars_files}} -auto-approve
+        if: ${{ github.event.inputs.action == 'apply' }}
