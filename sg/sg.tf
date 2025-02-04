@@ -24,7 +24,11 @@ resource "aws_security_group" "tls" {
   }
 
   tags = {
-    Name = "allow_tls"
+    Name = var.name 
   }
+}
+
+provider "aws" {
+  region = var.region
 }
 

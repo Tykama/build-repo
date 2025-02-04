@@ -12,6 +12,10 @@ variable "sg_name" {
     type = string
 }
 
-variable "tg_name" {
+variable "name" {
+  type = string
+}
+
+variable "region" {
   type = string
 }
