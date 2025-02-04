@@ -23,6 +23,16 @@ on:
         required: true
         default: 'dev.tfvars'
 
+      module:
+        type: choice
+        description: 'Path to vars files'
+        options: 
+          - vpc
+          - ec2
+          - sg
+        required: true
+        default: 'vpc'
+
 jobs:
   terraform:
     permissions:
@@ -49,18 +59,22 @@ jobs:
           role-to-assume: ${{ secrets.CI_ROLE }}    
                   
       - name: init
+        working-directory: ${{ github.event.inputs.module }}
         run: terraform init
 
       - name: validate
+        working-directory: ${{ github.event.inputs.module }}
         run: terraform validate
 
       - name: format
         run: terraform fmt -recursive
 
       - name: plan
+        working-directory: ${{ github.event.inputs.module }}
         run: terraform ${{ github.event.inputs.action }} -var-file=${{ github.event.inputs.vars_files}}
         if: ${{ github.event.inputs.action == 'plan' }}
 
       - name: apply
+        working-directory: ${{ github.event.inputs.module }}
         run: terraform ${{ github.event.inputs.action }} -var-file=${{ github.event.inputs.vars_files}} -auto-approve
         if: ${{ github.event.inputs.action == 'apply' }}
