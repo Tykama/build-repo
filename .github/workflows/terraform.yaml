@@ -1,4 +1,4 @@
-name: terraform
+name: terraform module
 
 on:
   push:
