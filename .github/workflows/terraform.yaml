@@ -1,7 +1,17 @@
 name: terraform module
 
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: choice
+        description: 'Plan or Apply'
+        options:
+          - plan
+          - apply
+          - destroy
+        required: true
+        default: 'plan'
 
 jobs:
   terraform:
@@ -39,3 +49,4 @@ jobs:
 
       - name: plan
         run: terraform plan
+        if: ${{ github.event.inputs.action == 'plan' }}
