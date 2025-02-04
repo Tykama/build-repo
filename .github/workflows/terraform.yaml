@@ -2,12 +2,12 @@ name: terraform
 
 on:
   push:
-    
+
 jobs:
   terraform:
     permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read  # This is required for actions/checkout
+      id-token: write  
+      contents: read  
 
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.CI_ROLE }}            
+          role-to-assume: ${{ secrets.CI_ROLE }}    
+                  
       - name: init
         run: terraform init
 
