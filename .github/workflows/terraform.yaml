@@ -7,9 +7,9 @@ on:
         type: choice
         description: 'Plan or Apply'
         options:
-          - Plan
-          - Apply
-          - Destroy
+          - plan
+          - apply
+          - destroy
         required: true
         default: 'Plan'
       
